@@ -6,8 +6,8 @@ services:
         - docker build -t cseprem/react-test -f ./client/Dockerfile.dev ./client
         
     script:
-        - docker run -e CI=true cseprem/react-test npm test
-        
+        - docker run -e CI=true cseprem/react-test npm run test
+              
     after_success:
         - docker build -t cseprem/multi-client ./client
         - docker build -t cseprem/multi-nginx ./nginx
