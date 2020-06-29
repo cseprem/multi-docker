@@ -1,1 +1,23 @@
-s
+sudo: required
+services:
+    - docker
+    
+    before install:
+        - docker build -t cseprem/react-test -f ./client/Dockerfile.dev ./client
+        
+    script:
+        - docker run -e CI=true cseprem/react-test npm test
+        
+    after_success:
+        - docker build -t cseprem/multi-client ./client
+        - docker build -t cseprem/multi-nginx ./nginx
+        - docker build -t cseprem/multi-server ./server
+        - docker build -t cseprem/multi-worker ./workwer
+        
+    # Log into docker cli
+    
+    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+    #Take images and push into docker
+    
+    - docker push cseprem/multi-client 
