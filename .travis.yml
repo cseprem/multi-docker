@@ -4,23 +4,23 @@ services:
     - docker
     
 before install:
-    - docker build -t cseprem/react-test -f ./client/Dockerfile.dev ./client
+    - docker build -t 360154266/react-test -f ./client/Dockerfile.dev ./client
         
 script:
-    - docker run -e CI=true cseprem/react-test npm test
+    - docker run -e CI=true 360154266/react-test npm test
               
 after_success:
-    - docker build -t cseprem/multi-client ./client
-    - docker build -t cseprem/multi-nginx ./nginx
-    - docker build -t cseprem/multi-server ./server
-    - docker build -t cseprem/multi-worker ./workwer
+    - docker build -t 360154266/multi-client ./client
+    - docker build -t 360154266/multi-nginx ./nginx
+    - docker build -t 360154266/multi-server ./server
+    - docker build -t 360154266/multi-worker ./workwer
         
     # Log into docker cli
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
     #Take images and push into docker
     
-    - docker push cseprem/multi-client
-    - docker push cseprem/multi-nginx
-    - docker push cseprem/multi-server
-    - docker push cseprem/multi-worker
+    - docker push 360154266/multi-client
+    - docker push 360154266/multi-nginx
+    - docker push 360154266/multi-server
+    - docker push 360154266/multi-worker
